@@ -29,7 +29,7 @@ curve = SubResource("Curve2D_0xm2m")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=687274973]
 position = Vector2(648, 96)
-rotation = 3.1415927
+rotation = 3.1415925
 
 [node name="Ball" parent="." unique_id=1584528884 instance=ExtResource("3_h2yge")]
 position = Vector2(696, 224)
