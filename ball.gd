@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 func _ready() -> void:
 	var dir = Vector2(5,-4).normalized()
-	velocity = dir * 400
+	velocity = dir * 600
 	
 func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)

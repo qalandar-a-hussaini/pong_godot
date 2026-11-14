@@ -26,7 +26,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upb24"]
 size = Vector2(15, 106)
 
-[node name="Paddle" type="Area2D" unique_id=1233628427]
+[node name="Paddle" type="CharacterBody2D" unique_id=1940514510]
+position = Vector2(738, 326)
 script = ExtResource("1_r112f")
 metadata/_edit_group_ = true
 
