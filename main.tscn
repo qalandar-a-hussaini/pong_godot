@@ -5,38 +5,32 @@
 [ext_resource type="PackedScene" uid="uid://bxevymji3t5c0" path="res://ball.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cv6r2wbfv4e8f" path="res://paddle.tscn" id="4_1bvp3"]
 
-[sub_resource type="Curve2D" id="Curve2D_0xm2m"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 648, 96, 0, 0, 0, 0, 632, 96, 0, 0, 0, 0, 632, 624, 0, 0, 0, 0, 648, 624, 0, 0, 0, 0, 648, 96)
-}
-point_count = 5
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqfem"]
 size = Vector2(1088, 93)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a5815"]
 size = Vector2(1090, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ais3j"]
+size = Vector2(48, 648)
+
+[sub_resource type="Curve2D" id="Curve2D_eaxbm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 624, 96, 0, 0, 0, 0, 624, 616)
+}
+point_count = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eaxbm"]
-size = Vector2(96, 546)
+size = Vector2(53, 648)
 
 [node name="Main" type="Node" unique_id=233574454]
 script = ExtResource("1_0xm2m")
+ball_spawn = ExtResource("3_h2yge")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1686534773]
 offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("2_h2yge")
-
-[node name="Path2D" type="Path2D" parent="." unique_id=1017845011]
-curve = SubResource("Curve2D_0xm2m")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=687274973]
-position = Vector2(648, 96)
-rotation = 3.1415925
-
-[node name="Ball" parent="." unique_id=1584528884 instance=ExtResource("3_h2yge")]
-position = Vector2(304, 191)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=300779356]
 
@@ -48,16 +42,37 @@ shape = SubResource("RectangleShape2D_wqfem")
 position = Vector2(639, 45)
 shape = SubResource("RectangleShape2D_a5815")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1400956035]
-position = Vector2(48, 359)
-shape = SubResource("RectangleShape2D_eaxbm")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=26140985]
-position = Vector2(1240, 352)
-shape = SubResource("RectangleShape2D_eaxbm")
-
 [node name="Paddle" parent="." unique_id=2138742264 instance=ExtResource("4_1bvp3")]
 position = Vector2(1144, 384)
 
 [node name="Paddle2" parent="." unique_id=1940514510 instance=ExtResource("4_1bvp3")]
 position = Vector2(136, 330)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1427224714]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=763873541]
+position = Vector2(1216, 360)
+shape = SubResource("RectangleShape2D_ais3j")
+
+[node name="Ball" parent="." unique_id=1584528884 instance=ExtResource("3_h2yge")]
+visible = false
+position = Vector2(0, 0)
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1627952242]
+curve = SubResource("Curve2D_eaxbm")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1523541333]
+visible = false
+position = Vector2(624, 96)
+rotation = 1.5707964
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=183268672]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1237561674]
+position = Vector2(64, 368)
+shape = SubResource("RectangleShape2D_eaxbm")
+
+[connection signal="body_entered" from="Area2D" to="Ball" method="_on_area_2d_body_entered"]
+[connection signal="hit_left" from="Ball" to="." method="_on_ball_hit_left"]
+[connection signal="hit_right" from="Ball" to="." method="_on_ball_hit_right"]
+[connection signal="body_entered" from="Area2D2" to="Ball" method="_on_area_2d_2_body_entered"]
